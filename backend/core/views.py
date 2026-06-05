@@ -1,9 +1,17 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework import viewsets
+from rest_framework.permissions import BasePermission
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .serializers import LoginSerializer, UserSerializer
+from .models import User
+from .serializers import (
+    LoginSerializer,
+    UserSerializer,
+    PlatformUserSerializer,
+    PlatformUserWriteSerializer,
+)
 
 
 class LoginView(APIView):
@@ -26,3 +34,18 @@ class MeView(APIView):
 
     def get(self, request):
         return Response(UserSerializer(request.user).data)
+
+
+class IsPlatformAdmin(BasePermission):
+    def has_permission(self, request, view):
+        return bool(request.user and request.user.is_authenticated and request.user.is_platform_admin)
+
+
+class PlatformUserViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsPlatformAdmin]
+    queryset = User.objects.order_by('email')
+
+    def get_serializer_class(self):
+        if self.action in ['create', 'update', 'partial_update']:
+            return PlatformUserWriteSerializer
+        return PlatformUserSerializer

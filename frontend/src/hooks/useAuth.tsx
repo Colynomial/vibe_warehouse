@@ -7,7 +7,13 @@ interface User {
   first_name: string
   last_name: string
   is_platform_admin: boolean
-  tenants: { id: number; name: string; slug: string; role: string }[]
+  tenants: {
+    id: number
+    name: string
+    slug: string
+    role: string
+    apps?: { id: number; slug: string; name: string; description?: string }[]
+  }[]
 }
 
 interface AuthContextType {
