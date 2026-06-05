@@ -1,55 +1,63 @@
 # Feature Index
 
-Master index of all Vibe Warehouse features.
+Master index of all Vibe Warehouse features. See [ROADMAP.md](./ROADMAP.md) for phased delivery plan.
 
 ## Core Features
 
+### Multi-Tenancy (Schema-per-Tenant)
+- **[feature-multi-tenancy](./feature-multi-tenancy/)** — Schema isolation, tenant routing, data & UI permissions
+  - Status: 📝 Ideation
+  - Priority: P0 (MVP)
+  - Docs: [01_requirements.md](./feature-multi-tenancy/01_requirements.md)
+
 ### Authentication & Authorization
-- **[feature-auth](./feature-auth/)** - User authentication, session management, permissions
-  - Status: Planned
+- **[feature-auth](./feature-auth/)** — JWT auth, tenant-scoped users, role-based access
+  - Status: 📝 Ideation
   - Priority: P0 (MVP)
-  - Owner: TBD
+  - Docs: [01_requirements.md](./feature-auth/01_requirements.md)
 
-### Data Warehouse
-- **[feature-data-warehouse](./feature-data-warehouse/)** - Data ingestion, ETL, connectors
-  - Status: Planned
+### Data Warehouse & Ingestion
+- **[feature-data-warehouse](./feature-data-warehouse/)** — Generic connectors (HelloFlex, Meta Ads), JSONB raw storage, MV engine with DAG
+  - Status: ✅ Designed
   - Priority: P0 (MVP)
-  - Owner: TBD
+  - Docs: [01_requirements.md](./feature-data-warehouse/01_requirements.md)
+  - Key decisions: JSONB+extracted columns for raw storage, SQL queries stored in DB + cache tables for MVs
 
-### Dashboard Builder
-- **[feature-dashboard-builder](./feature-dashboard-builder/)** - Create and manage dashboards
-  - Status: Planned
+### Dashboard / Data Portal
+- **[feature-dashboard-builder](./feature-dashboard-builder/)** — Basic data views, tables, charts
+  - Status: 📝 Ideation
   - Priority: P0 (MVP)
-  - Owner: TBD
+  - Docs: [01_requirements.md](./feature-dashboard-builder/01_requirements.md)
 
-### Data Branches
-- **[feature-data-branches](./feature-data-branches/)** - Version control for data queries
-  - Status: Planned
+### Vibe Coding (Client Self-Service)
+- **[feature-vibe-coding](./feature-vibe-coding/)** — Repo provisioning, API docs, client app hosting
+  - Status: 📝 Ideation
   - Priority: P1
-  - Owner: TBD
+  - Docs: [01_requirements.md](./feature-vibe-coding/01_requirements.md)
 
-### Vibe Coding (AI-Powered Builder)
-- **[feature-vibe-coding](./feature-vibe-coding/)** - AI-driven component builder with Claude
-  - Status: Planned
-  - Priority: P1
-  - Owner: TBD
-
-### Multi-Tenancy & RLS
-- **[feature-multi-tenancy](./feature-multi-tenancy/)** - Customer isolation, row-level security
-  - Status: Planned
+### Frontend Architecture
+- **[feature-frontend](./feature-frontend/)** — React + Vite, per-tenant deploys, @vibewarehouse/ui, Azure Static Web Apps
+  - Status: 📝 Ideation
   - Priority: P0 (MVP)
-  - Owner: TBD
+  - Docs: [01_requirements.md](./feature-frontend/01_requirements.md)
+
+### Monitoring & Usage Tracking
+- **[feature-monitoring](./feature-monitoring/)** — API logging, ingestion tracking, user sessions, cost allocation, tenant insights
+  - Status: 📝 Ideation
+  - Priority: P0 (MVP)
+  - Docs: [01_requirements.md](./feature-monitoring/01_requirements.md)
 
 ## Planning Status
 
 | Feature | Status | Priority | Phase |
 |---------|--------|----------|-------|
-| Auth | 🔴 Not started | P0 | 1 |
-| Data Warehouse | 🔴 Not started | P0 | 1 |
-| Dashboard Builder | 🔴 Not started | P0 | 1 |
-| Multi-Tenancy | 🔴 Not started | P0 | 1 |
-| Data Branches | 🔴 Not started | P1 | 2 |
-| Vibe Coding | 🔴 Not started | P1 | 2 |
+| Multi-Tenancy | 📝 Ideation | P0 | 1 |
+| Auth | 📝 Ideation | P0 | 1 |
+| Data Warehouse | 📝 Ideation | P0 | 1 |
+| Dashboard | 📝 Ideation | P0 | 1 |
+| Frontend | 📝 Ideation | P0 | 1 |
+| Monitoring | 📝 Ideation | P0 | 1 |
+| Vibe Coding | 📝 Ideation | P1 | 2 |
 
 ## How to Add a Feature
 
