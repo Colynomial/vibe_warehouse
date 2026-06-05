@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #8A6FCB;
+  --color-primary-hover: #7A5DB2;
+  --color-bg-dark: #2A213A;
+  --color-bg-header: #221a37;
+  --color-surface: #352b4a;
+  --color-text: #e7e9eb;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Global styled scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #8A6FCB40 transparent;
+}
+*::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: #8A6FCB30;
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #8A6FCB60;
+}
+
+/* Thin scrollbar for data tables */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #8A6FCB40 transparent;
+}
+.scrollbar-thin::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #8A6FCB40;
+  border-radius: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #8A6FCB80;
+}
