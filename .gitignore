@@ -1,0 +1,23 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+db.sqlite3
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# IDE
+.vscode/
+*.swp
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Conda env (stored externally, not in repo)

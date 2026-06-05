@@ -1,0 +1,676 @@
+[
+  {
+    "path": "/api/activities",
+    "name": "List Activities",
+    "description": "Returns activities for Customer",
+    "cursor_field": "lastUpdatedDateTimeUtcFrom",
+    "id_field": "guid",
+    "parameters": [
+      {"name": "search", "type": "string", "required": false, "description": "Search by activity title name and description. Max 128 chars"},
+      {"name": "entityStateIds", "type": "array[integer]", "required": false, "description": "State of Activity. Values at GET api/domainTypes/927/domainValues"},
+      {"name": "priorityIds", "type": "array[integer]", "required": false, "description": "Priority. Values at GET api/domainTypes/926/domainValues"},
+      {"name": "typeIds", "type": "array[integer]", "required": false, "description": "Type. Values at GET api/domainTypes/918/domainValues"},
+      {"name": "subjectIds", "type": "array[integer]", "required": false, "description": "Subject. Values at GET api/domainTypes/865/domainValues"},
+      {"name": "ownerUserGuids", "type": "array[uuid]", "required": false, "description": "Owner user GUIDs"},
+      {"name": "assigneeTypeId", "type": "integer", "required": false, "description": "1 = User, 2 = Department, 3 = Agency"},
+      {"name": "assignedUserGuids", "type": "array[uuid]", "required": false, "description": "Assigned user GUIDs"},
+      {"name": "departmentIds", "type": "array[integer]", "required": false, "description": "Department. Values at GET api/domainTypes/930/domainValues"},
+      {"name": "agencyGuids", "type": "array[uuid]", "required": false, "description": "Agency GUIDs"},
+      {"name": "dueDateFrom", "type": "date-time", "required": false, "description": "Activities with due date after this date"},
+      {"name": "dueDateTo", "type": "date-time", "required": false, "description": "Activities with due date before this date"},
+      {"name": "includeArchived", "type": "boolean", "required": false, "description": "Include archived activities"},
+      {"name": "lastUpdatedDateTimeUtcFrom", "type": "date-time", "required": false, "description": "Get activities from last updated date"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/agencies",
+    "name": "List Agencies",
+    "description": "Returns agencies for Customer",
+    "cursor_field": "lastUpdateDateUtcFrom",
+    "id_field": "guid",
+    "parameters": [
+      {"name": "entityStateIds", "type": "array[integer]", "required": false, "description": "State of Agency"},
+      {"name": "organizationTypeIds", "type": "array[integer]", "required": false, "description": "OrganizationTypes of Agency"},
+      {"name": "search", "type": "string", "required": false, "description": "Search by agency name. Max 128 chars"},
+      {"name": "lastUpdateDateUtcFrom", "type": "date-time", "required": false, "description": "Get agency from last updated date"},
+      {"name": "lastUpdateDateUtcTo", "type": "date-time", "required": false, "description": "Get agency to last updated date"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/agencies/{agencyGuid}/contactpersons",
+    "name": "List Agency Contact Persons",
+    "description": "Returns contact persons for agency",
+    "cursor_field": "lastUpdateDateUtcFrom",
+    "id_field": "guid",
+    "parameters": [
+      {"name": "agencyGuid", "type": "uuid", "required": true, "description": "GUID of agency (path parameter)"},
+      {"name": "search", "type": "string", "required": false, "description": "Search by contact person name/email"},
+      {"name": "entityStateIds", "type": "array[integer]", "required": false, "description": "User state. Values at GET api/domainTypes/872/domainValues"},
+      {"name": "contactPersonEntityStateIds", "type": "array[integer]", "required": false, "description": "State. Values at GET api/domainTypes/962/domainValues"},
+      {"name": "lastUpdateDateUtcFrom", "type": "date-time", "required": false, "description": "Get contact person from last updated date"},
+      {"name": "lastUpdateDateUtcTo", "type": "date-time", "required": false, "description": "Get contact person to last updated date"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/agencies/contactpersons",
+    "name": "List Contact Persons of All Agencies",
+    "description": "Returns contact persons for all agencies",
+    "cursor_field": "lastUpdateDateUtcFrom",
+    "id_field": "guid",
+    "parameters": [
+      {"name": "search", "type": "string", "required": false, "description": "Search by contact person name/email"},
+      {"name": "entityStateIds", "type": "array[integer]", "required": false, "description": "User state. Values at GET api/domainTypes/872/domainValues"},
+      {"name": "contactPersonEntityStateIds", "type": "array[integer]", "required": false, "description": "State. Values at GET api/domainTypes/962/domainValues"},
+      {"name": "lastUpdateDateUtcFrom", "type": "date-time", "required": false, "description": "Get contact person from last updated date"},
+      {"name": "lastUpdateDateUtcTo", "type": "date-time", "required": false, "description": "Get contact person to last updated date"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/applications",
+    "name": "List Applications",
+    "description": "Returns applications for Agency",
+    "cursor_field": "lastUpdateFrom",
+    "id_field": "guid",
+    "parameters": [
+      {"name": "whatSearch", "type": "string", "required": false, "description": "Job title or applicant name or email or source. Max 128 chars"},
+      {"name": "jobGuids", "type": "array[uuid]", "required": false, "description": "Guid collection for Jobs"},
+      {"name": "agencyGuids", "type": "array[uuid]", "required": false, "description": "Guid collection for Agencies of Job"},
+      {"name": "employerGuids", "type": "array[uuid]", "required": false, "description": "Guid collection for Employers of Job"},
+      {"name": "candidateGuids", "type": "array[uuid]", "required": false, "description": "Guid collection for Candidates"},
+      {"name": "entityStateIds", "type": "array[integer]", "required": false, "description": "State of Application"},
+      {"name": "lastUpdateFrom", "type": "date-time", "required": false, "description": "Get application from last updated date"},
+      {"name": "lastUpdateTo", "type": "date-time", "required": false, "description": "Get application to last updated date"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/candidates",
+    "name": "List Candidates",
+    "description": "Returns candidates for Customer",
+    "cursor_field": "lastUpdateDateUtcFrom",
+    "id_field": "guid",
+    "parameters": [
+      {"name": "entityStateIds", "type": "array[integer]", "required": false, "description": "State of Candidate"},
+      {"name": "agencyGuids", "type": "array[uuid]", "required": false, "description": "Guid collection for Agencies of Candidate"},
+      {"name": "search", "type": "string", "required": false, "description": "Search by candidate name and email. Max 128 chars"},
+      {"name": "lastUpdateDateUtcFrom", "type": "date-time", "required": false, "description": "Get candidates from last updated date"},
+      {"name": "lastUpdateDateUtcTo", "type": "date-time", "required": false, "description": "Get candidates to last updated date"},
+      {"name": "tagIds", "type": "array[integer]", "required": false, "description": "TagIds of Candidate"},
+      {"name": "candidateNumber", "type": "string", "required": false, "description": "Search by candidate number. Max 64 chars"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/candidates/{candidateGuid}/addresses",
+    "name": "List Candidate Addresses",
+    "description": "Returns addresses of candidate",
+    "cursor_field": null,
+    "id_field": "addressTypeId",
+    "parameters": [
+      {"name": "candidateGuid", "type": "uuid", "required": true, "description": "GUID of candidate (path parameter)"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/candidates/{candidateGuid}/bankaccounts",
+    "name": "List Candidate Bank Accounts",
+    "description": "Returns bank accounts of candidate",
+    "cursor_field": null,
+    "id_field": "bankAccountNumber",
+    "parameters": [
+      {"name": "candidateGuid", "type": "uuid", "required": true, "description": "GUID of candidate (path parameter)"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/candidates/{candidateGuid}/companyaddresses",
+    "name": "List Candidate Company Addresses",
+    "description": "Returns company addresses of self-employed candidate",
+    "cursor_field": null,
+    "id_field": "addressTypeId",
+    "parameters": [
+      {"name": "candidateGuid", "type": "uuid", "required": true, "description": "GUID of Self-employed Candidate (path parameter)"}
+    ]
+  },
+  {
+    "path": "/api/candidates/{candidateGuid}/pensionSchemes",
+    "name": "List Candidate Pension Schemes",
+    "description": "Returns pension schemes of candidate",
+    "cursor_field": null,
+    "id_field": "guid",
+    "parameters": [
+      {"name": "candidateGuid", "type": "uuid", "required": true, "description": "GUID of candidate (path parameter)"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/candidates/{candidateGuid}/periodicalcomponents",
+    "name": "List Candidate Periodical Components",
+    "description": "Returns periodical components of candidate",
+    "cursor_field": null,
+    "id_field": "guid",
+    "parameters": [
+      {"name": "candidateGuid", "type": "uuid", "required": true, "description": "GUID of candidate (path parameter)"},
+      {"name": "agencyGuid", "type": "uuid", "required": false, "description": "GUID of agency"},
+      {"name": "startDateFrom", "type": "date-time", "required": false, "description": "Get periodic components from start date"},
+      {"name": "startDateTo", "type": "date-time", "required": false, "description": "Get periodic components to start date"},
+      {"name": "endDateFrom", "type": "date-time", "required": false, "description": "Get periodic components from end date"},
+      {"name": "endDateTo", "type": "date-time", "required": false, "description": "Get periodic components to end date"},
+      {"name": "periodTypeId", "type": "integer", "required": false, "description": "Period type. domainValueTypeId=929"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/candidates/{candidateGuid}/taxResidenceAddresses",
+    "name": "List Candidate Tax Residence Addresses",
+    "description": "Returns tax residence addresses of candidate",
+    "cursor_field": null,
+    "id_field": null,
+    "parameters": [
+      {"name": "candidateGuid", "type": "uuid", "required": true, "description": "GUID of candidate (path parameter)"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/candidates/workedHours",
+    "name": "List Candidates Worked Hours",
+    "description": "Returns candidates worked hours for Customer",
+    "cursor_field": null,
+    "id_field": "guid",
+    "parameters": [
+      {"name": "dateFrom", "type": "date-time", "required": false, "description": "Contract start date >= this. Default: today - 1 year"},
+      {"name": "dateTo", "type": "date-time", "required": false, "description": "Contract start date <= this. Default: today"},
+      {"name": "activeContract", "type": "boolean", "required": false, "description": "Filter for active contracts. Default: true"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/caoinstances",
+    "name": "List CAOInstances",
+    "description": "Returns CAOInstances",
+    "cursor_field": null,
+    "id_field": "id",
+    "parameters": [
+      {"name": "caoFirstLetter", "type": "string", "required": false, "description": "First letter of CAO name"},
+      {"name": "sbiCode", "type": "string", "required": false, "description": "SBI Code of CAO"},
+      {"name": "isActualOnly", "type": "boolean", "required": false, "description": "Only actual CAOInstances. Default: false"}
+    ]
+  },
+  {
+    "path": "/api/caonews",
+    "name": "List CAONews",
+    "description": "Returns CAONews",
+    "cursor_field": null,
+    "id_field": "id",
+    "parameters": [
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Min 1"}
+    ]
+  },
+  {
+    "path": "/api/caowages",
+    "name": "List CAOWages",
+    "description": "Returns CAOWages",
+    "cursor_field": null,
+    "id_field": "id",
+    "parameters": [
+      {"name": "year", "type": "integer", "required": false, "description": "Year of effective date. Min 0"},
+      {"name": "monthNumber", "type": "integer", "required": false, "description": "Month number (0-11)"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Min 1"}
+    ]
+  },
+  {
+    "path": "/api/contracts",
+    "name": "List Contracts",
+    "description": "Returns contracts for customer",
+    "cursor_field": "lastUpdateDateUtcFrom",
+    "id_field": "guid",
+    "parameters": [
+      {"name": "entityStateIds", "type": "array[integer]", "required": false, "description": "State of Contract. ToBeSignedAgency-110, RejectedAgency-111, ToBeSignedEmployer-112, RejectedEmployer-113, ToBeSignedCandidate-114, RejectedCandidate-115, Active-167, Signed-116, Ended-118, Historical-119, Deleted-117, Created-220, Draft-232, ToBeSigned-264, ToBeSent-380"},
+      {"name": "contractTypeIds", "type": "array[integer]", "required": false, "description": "Type of Contract"},
+      {"name": "candidateGuids", "type": "array[uuid]", "required": false, "description": "Guid collection of Candidates"},
+      {"name": "employerGuids", "type": "array[uuid]", "required": false, "description": "Guid collection of Employers"},
+      {"name": "agencyGuids", "type": "array[uuid]", "required": false, "description": "Guid collection of Agencies"},
+      {"name": "search", "type": "string", "required": false, "description": "Search by JobTitle. Max 256 chars"},
+      {"name": "lastUpdateDateUtcFrom", "type": "date-time", "required": false, "description": "Get contracts from last updated date"},
+      {"name": "lastUpdateDateUtcTo", "type": "date-time", "required": false, "description": "Get contracts to last updated date"},
+      {"name": "startDateUtcFrom", "type": "date-time", "required": false, "description": "Get contracts from start date"},
+      {"name": "startDateUtcTo", "type": "date-time", "required": false, "description": "Get contracts to start date"},
+      {"name": "endDateUtcFrom", "type": "date-time", "required": false, "description": "Get contracts from end date"},
+      {"name": "endDateUtcTo", "type": "date-time", "required": false, "description": "Get contracts to end date"},
+      {"name": "includeArchived", "type": "boolean", "required": false, "description": "Include archived. Default: false"},
+      {"name": "includeAllVersions", "type": "boolean", "required": false, "description": "Include all versions. Default: false"},
+      {"name": "externalId", "type": "string", "required": false, "description": "Search by External Id. Max 50 chars"},
+      {"name": "contractNumber", "type": "string", "required": false, "description": "Search by contract number. Digits only. Max 32 chars"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/documents",
+    "name": "List Documents",
+    "description": "Returns documents for Customer",
+    "cursor_field": null,
+    "id_field": "guid",
+    "parameters": [
+      {"name": "search", "type": "string", "required": false, "description": "Search by document name, number, subject, contract number. Max 128 chars"},
+      {"name": "entityTypeIds", "type": "array[integer]", "required": false, "description": "EntityType of Document. Employer-18, Candidate-95"},
+      {"name": "entityStateIds", "type": "array[integer]", "required": false, "description": "State of Document. ToBeApproved-120, Approved-121, Rejected-122, Deleted-123, ApprovedByAgency-135, RejectedByAgency-136, Published-178, ToBePublished-14, ToBeSent-381, Historical-382"},
+      {"name": "documentTypeIds", "type": "array[integer]", "required": false, "description": "Type of Document"},
+      {"name": "ownerGuids", "type": "array[uuid]", "required": false, "description": "Guid collection for Employers or Candidates"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/documents/documenttemplates",
+    "name": "List Document Templates",
+    "description": "Returns document templates items",
+    "cursor_field": null,
+    "id_field": "id",
+    "parameters": [
+      {"name": "documentTypeIds", "type": "array[integer]", "required": false, "description": "Type of Document"},
+      {"name": "documentTemplateTypeIds", "type": "array[integer]", "required": false, "description": "Type Template. Candidate-1, Employer-3. Contract-2 not supported"},
+      {"name": "inUse", "type": "boolean", "required": false, "description": "Whether document template is in use"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/documents/settings",
+    "name": "List Document Settings",
+    "description": "Returns list of settings for document types",
+    "cursor_field": null,
+    "id_field": "id",
+    "parameters": []
+  },
+  {
+    "path": "/api/domainTypes",
+    "name": "List Domain Types",
+    "description": "Returns domain types for Customer",
+    "cursor_field": null,
+    "id_field": "id",
+    "parameters": [
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/domainTypes/{domainValueTypeId}/domainValues",
+    "name": "List Domain Values",
+    "description": "Returns domain values for Customer by Domain Type",
+    "cursor_field": null,
+    "id_field": "id",
+    "parameters": [
+      {"name": "domainValueTypeId", "type": "string", "required": true, "description": "Domain value type id (path parameter)"},
+      {"name": "isActive", "type": "boolean", "required": false, "description": "Search by IsActive property"},
+      {"name": "hrXmlCode", "type": "string", "required": false, "description": "Search by HrXmlCode. Max 256 chars"},
+      {"name": "number", "type": "integer", "required": false, "description": "Search by Number property"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/domainValues/countryCodes",
+    "name": "Country Code Values",
+    "description": "Returns country codes",
+    "cursor_field": null,
+    "id_field": "code",
+    "parameters": []
+  },
+  {
+    "path": "/api/employers",
+    "name": "List Employers",
+    "description": "Returns employers for Customer",
+    "cursor_field": "lastUpdateDateUtcFrom",
+    "id_field": "guid",
+    "parameters": [
+      {"name": "entityStateIds", "type": "array[integer]", "required": false, "description": "State of Employer"},
+      {"name": "agencyGuids", "type": "array[uuid]", "required": false, "description": "Guid collection for parent Agencies"},
+      {"name": "organizationTypeIds", "type": "array[integer]", "required": false, "description": "OrganizationTypes of Employer"},
+      {"name": "tagIds", "type": "array[integer]", "required": false, "description": "TagIds of Employer"},
+      {"name": "search", "type": "string", "required": false, "description": "Search by employer name. Max 128 chars"},
+      {"name": "lastUpdateDateUtcFrom", "type": "date-time", "required": false, "description": "Get employers from last updated date (UTC)"},
+      {"name": "lastUpdateDateUtcTo", "type": "date-time", "required": false, "description": "Get employers to last updated date"},
+      {"name": "kvkMainNumber", "type": "string", "required": false, "description": "Search by KVK number. Max 128 chars"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/employers/{employerGuid}/contactpersons",
+    "name": "List Employer Contact Persons",
+    "description": "Returns contact persons for employer",
+    "cursor_field": "lastUpdateDateUtcFrom",
+    "id_field": "guid",
+    "parameters": [
+      {"name": "employerGuid", "type": "uuid", "required": true, "description": "GUID of employer (path parameter)"},
+      {"name": "search", "type": "string", "required": false, "description": "Search by contact person name/email"},
+      {"name": "entityStateIds", "type": "array[integer]", "required": false, "description": "User state. Values at GET api/domainTypes/872/domainValues"},
+      {"name": "contactPersonEntityStateIds", "type": "array[integer]", "required": false, "description": "State. Values at GET api/domainTypes/960/domainValues"},
+      {"name": "lastUpdateDateUtcFrom", "type": "date-time", "required": false, "description": "Get user from last updated date (UTC)"},
+      {"name": "lastUpdateDateUtcTo", "type": "date-time", "required": false, "description": "Get user to last updated date (UTC)"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/employers/{employerGuid}/costcenters",
+    "name": "List Employer Cost Centers",
+    "description": "Returns cost centers for employer",
+    "cursor_field": "lastUpdateDateUtcFrom",
+    "id_field": "guid",
+    "parameters": [
+      {"name": "employerGuid", "type": "uuid", "required": true, "description": "GUID of employer (path parameter)"},
+      {"name": "search", "type": "string", "required": false, "description": "Search by cost center name or code"},
+      {"name": "lastUpdateDateUtcFrom", "type": "date-time", "required": false, "description": "Get cost center from last updated date (UTC)"},
+      {"name": "lastUpdateDateUtcTo", "type": "date-time", "required": false, "description": "Get cost center to last updated date (UTC)"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/employers/{employerGuid}/custompublicholidays",
+    "name": "Employer Custom Public Holidays",
+    "description": "Returns only custom holidays for employer (available for POST/PUT/DELETE)",
+    "cursor_field": null,
+    "id_field": "id",
+    "parameters": [
+      {"name": "employerGuid", "type": "uuid", "required": true, "description": "GUID of employer (path parameter)"},
+      {"name": "dateFrom", "type": "date-time", "required": false, "description": "Filter from date"},
+      {"name": "dateTo", "type": "date-time", "required": false, "description": "Filter to date"},
+      {"name": "officialHolidayTypeIds", "type": "array[integer]", "required": false, "description": "Types of holiday. Values at GET api/domainTypes/903/domainValues"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/employers/{employerGuid}/officialpublicholidays",
+    "name": "Employer Official Public Holidays",
+    "description": "Returns only official holidays for employer (available for PUT)",
+    "cursor_field": null,
+    "id_field": "id",
+    "parameters": [
+      {"name": "employerGuid", "type": "uuid", "required": true, "description": "GUID of employer (path parameter)"},
+      {"name": "dateFrom", "type": "date-time", "required": false, "description": "Filter from date"},
+      {"name": "dateTo", "type": "date-time", "required": false, "description": "Filter to date"},
+      {"name": "officialHolidayTypeIds", "type": "array[integer]", "required": false, "description": "Types of holiday. Values at GET api/domainTypes/903/domainValues"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/employers/{employerGuid}/publicholidays",
+    "name": "Employer Public Holidays (All)",
+    "description": "Returns all active/enabled public holidays for employer (official and custom)",
+    "cursor_field": null,
+    "id_field": "id",
+    "parameters": [
+      {"name": "employerGuid", "type": "uuid", "required": true, "description": "GUID of employer (path parameter)"},
+      {"name": "dateFrom", "type": "date-time", "required": false, "description": "Filter from date"},
+      {"name": "dateTo", "type": "date-time", "required": false, "description": "Filter to date"},
+      {"name": "officialHolidayTypeIds", "type": "array[integer]", "required": false, "description": "Types of holiday. Values at GET api/domainTypes/903/domainValues"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/employers/contactpersons",
+    "name": "List of All Employers Contact Persons",
+    "description": "Returns contact persons for all employers",
+    "cursor_field": "lastUpdateDateUtcFrom",
+    "id_field": "guid",
+    "parameters": [
+      {"name": "search", "type": "string", "required": false, "description": "Search by contact person name/email"},
+      {"name": "entityStateIds", "type": "array[integer]", "required": false, "description": "User state. Values at GET api/domainTypes/872/domainValues"},
+      {"name": "contactPersonEntityStateIds", "type": "array[integer]", "required": false, "description": "State. Values at GET api/domainTypes/962/domainValues"},
+      {"name": "lastUpdateDateUtcFrom", "type": "date-time", "required": false, "description": "Get user from last updated date (UTC)"},
+      {"name": "lastUpdateDateUtcTo", "type": "date-time", "required": false, "description": "Get user to last updated date (UTC)"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/illnesses",
+    "name": "List Of Illnesses",
+    "description": "Returns illnesses",
+    "cursor_field": null,
+    "id_field": "guid",
+    "parameters": [
+      {"name": "candidateGuid", "type": "uuid", "required": true, "description": "GUID of candidate"},
+      {"name": "isActive", "type": "boolean", "required": false, "description": "Search by IsActive property"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/invoices",
+    "name": "List Invoices",
+    "description": "Returns invoices for Customer",
+    "cursor_field": "createdDateUtcFrom",
+    "id_field": "guid",
+    "parameters": [
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 10000"},
+      {"name": "invoiceType", "type": "string", "required": false, "description": "Type of Invoice. Values: 'SalesInvoice', 'PurchaseInvoice'"},
+      {"name": "createdDateUtcFrom", "type": "date-time", "required": false, "description": "Get invoices from created date"},
+      {"name": "createdDateUtcTo", "type": "date-time", "required": false, "description": "Get invoices to created date"},
+      {"name": "organizationGuid", "type": "uuid", "required": false, "description": "Get invoices of specified organization"},
+      {"name": "organizationNumber", "type": "string", "required": false, "description": "Get invoices by organization number. Max 64 chars. Not for PurchaseInvoice"},
+      {"name": "invoiceNumber", "type": "string", "required": false, "description": "Get invoices by number. Max 64 chars"}
+    ]
+  },
+  {
+    "path": "/api/jobs",
+    "name": "List Jobs",
+    "description": "Returns jobs for Agency",
+    "cursor_field": "lastUpdatedFrom",
+    "id_field": "guid",
+    "parameters": [
+      {"name": "whatSearch", "type": "string", "required": false, "description": "Job title or description. Max 128 chars"},
+      {"name": "whereSearch", "type": "string", "required": false, "description": "Job city, country. Max 128 chars"},
+      {"name": "locationAreaRadius", "type": "integer", "required": false, "description": "Location area radius. Min 0, max 80"},
+      {"name": "entityStateIds", "type": "array[integer]", "required": false, "description": "State of Job"},
+      {"name": "employerGuids", "type": "array[uuid]", "required": false, "description": "Guid collection for Employers"},
+      {"name": "assigneeGuids", "type": "array[uuid]", "required": false, "description": "Guid collection for Agency Users"},
+      {"name": "ownerGuids", "type": "array[uuid]", "required": false, "description": "Guid collection for Agencies"},
+      {"name": "jobCategoryIds", "type": "array[integer]", "required": false, "description": "Job Category domain values"},
+      {"name": "industryIds", "type": "array[integer]", "required": false, "description": "Industries domain values"},
+      {"name": "iscoJobFunctionIds", "type": "array[integer]", "required": false, "description": "ISCO Job Function domain values"},
+      {"name": "tagIds", "type": "array[integer]", "required": false, "description": "TagIds of Job"},
+      {"name": "skillIds", "type": "array[integer]", "required": false, "description": "SkillIds of Job"},
+      {"name": "workingHoursMin", "type": "integer", "required": false, "description": "Min working hours per week. Min 0, max 168"},
+      {"name": "workingHoursMax", "type": "integer", "required": false, "description": "Max working hours per week. Min 0, max 168"},
+      {"name": "employmentTypeIds", "type": "array[integer]", "required": false, "description": "Job Type and Employment Type domain values"},
+      {"name": "lastUpdatedFrom", "type": "date-time", "required": false, "description": "Get job from last updated date"},
+      {"name": "lastUpdatedTo", "type": "date-time", "required": false, "description": "Get job to last updated date"},
+      {"name": "salaryMin", "type": "integer", "required": false, "description": "Min salary per month. Min 0"},
+      {"name": "salaryMax", "type": "integer", "required": false, "description": "Max salary per month. Min 0"},
+      {"name": "createdByEmployerOnly", "type": "boolean", "required": false, "description": "Show only jobs created by employer"},
+      {"name": "includeArchived", "type": "boolean", "required": false, "description": "Include archived jobs. Default: false"},
+      {"name": "isTopOnly", "type": "boolean", "required": false, "description": "Show top jobs only. Default: false"},
+      {"name": "isPublishedOnly", "type": "boolean", "required": false, "description": "Show published jobs only. Default: false"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/publicjobs",
+    "name": "Public Job List",
+    "description": "Returns public jobs for Agency",
+    "cursor_field": "lastUpdatedFrom",
+    "id_field": "guid",
+    "parameters": [
+      {"name": "whatSearch", "type": "string", "required": false, "description": "Job title or description. Max 128 chars"},
+      {"name": "whereSearch", "type": "string", "required": false, "description": "Job city, country. Max 128 chars"},
+      {"name": "locationAreaRadius", "type": "integer", "required": false, "description": "Location area radius. Min 0, max 80"},
+      {"name": "employmentTypeIds", "type": "array[integer]", "required": false, "description": "Job Type and Employment Type domain values"},
+      {"name": "salaryMin", "type": "integer", "required": false, "description": "Min salary per month. Min 0"},
+      {"name": "salaryMax", "type": "integer", "required": false, "description": "Max salary per month. Min 0"},
+      {"name": "jobCategoryIds", "type": "array[integer]", "required": false, "description": "Job Category domain values"},
+      {"name": "industryIds", "type": "array[integer]", "required": false, "description": "Industries domain values"},
+      {"name": "workingHoursMin", "type": "integer", "required": false, "description": "Min working hours per week. Min 0, max 168"},
+      {"name": "workingHoursMax", "type": "integer", "required": false, "description": "Max working hours per week. Min 0, max 168"},
+      {"name": "tagIds", "type": "array[integer]", "required": false, "description": "TagIds of Job"},
+      {"name": "skillIds", "type": "array[integer]", "required": false, "description": "SkillIds of Job"},
+      {"name": "lastUpdatedFrom", "type": "date-time", "required": false, "description": "Get job from last updated date"},
+      {"name": "lastUpdatedTo", "type": "date-time", "required": false, "description": "Get job to last updated date"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/publicnews",
+    "name": "List Public News",
+    "description": "Returns public news for Customer",
+    "cursor_field": null,
+    "id_field": "guid",
+    "parameters": [
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/tags",
+    "name": "List Tags",
+    "description": "Returns tags for Customer",
+    "cursor_field": null,
+    "id_field": "id",
+    "parameters": [
+      {"name": "search", "type": "string", "required": false, "description": "Tag name. Max 128 chars"},
+      {"name": "entityTypeIds", "type": "array[integer]", "required": false, "description": "Entity type with tag. Job-94, Employer-18, Candidate-95, User-105, JobMatchProfile-321, CandidateMatchProfile-372"},
+      {"name": "tagTypeIds", "type": "array[integer]", "required": false, "description": "Type of Tag. General-1, Skill-2"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/timecards",
+    "name": "Timecards List",
+    "description": "Returns timecards for customer",
+    "cursor_field": "lastUpdateDateUtcFrom",
+    "id_field": "guid",
+    "parameters": [
+      {"name": "agencyGuids", "type": "array[uuid]", "required": false, "description": "Guid collection of Agencies"},
+      {"name": "employerGuids", "type": "array[uuid]", "required": false, "description": "Guid collection of Employers"},
+      {"name": "candidateGuids", "type": "array[uuid]", "required": false, "description": "Guid collection of Candidates"},
+      {"name": "contractGuids", "type": "array[uuid]", "required": false, "description": "Guid collection of Contracts"},
+      {"name": "entityStateIds", "type": "array[integer]", "required": false, "description": "State of Timecard. Report-151, Submitted-152, ToBeApprovedByAgency-204, Approved-153, Rejected-154, Completed-155, Deleted-156, ToBeCalculated-219, Processed-231, ToBeCanceled-391, Canceled-392"},
+      {"name": "lastUpdateDateUtcFrom", "type": "date-time", "required": false, "description": "Get timecards from last updated date"},
+      {"name": "lastUpdateDateUtcTo", "type": "date-time", "required": false, "description": "Get timecards to last updated date"},
+      {"name": "startDateUtcFrom", "type": "date-time", "required": false, "description": "Get timecards from start date"},
+      {"name": "startDateUtcTo", "type": "date-time", "required": false, "description": "Get timecards to start date"},
+      {"name": "endDateUtcFrom", "type": "date-time", "required": false, "description": "Get timecards from end date"},
+      {"name": "endDateUtcTo", "type": "date-time", "required": false, "description": "Get timecards to end date"},
+      {"name": "skip", "type": "integer", "required": false, "description": "Items to skip. Default 0, min 0"},
+      {"name": "take", "type": "integer", "required": false, "description": "Items per page. Default 10, min 1, max 100"}
+    ]
+  },
+  {
+    "path": "/api/wagesearch/caofunctiongroups",
+    "name": "CAOFunctionGroup List Items",
+    "description": "Returns CAOFunctionGroup items by CAOFunction id",
+    "cursor_field": null,
+    "id_field": "id",
+    "parameters": [
+      {"name": "caoFunctionId", "type": "integer", "required": true, "description": "Id of CAOFunction"}
+    ]
+  },
+  {
+    "path": "/api/wagesearch/caofunctions",
+    "name": "CAOFunction List Items",
+    "description": "Returns CAOFunction items by CAO id",
+    "cursor_field": null,
+    "id_field": "id",
+    "parameters": [
+      {"name": "caoId", "type": "integer", "required": true, "description": "Id of CAO"}
+    ]
+  },
+  {
+    "path": "/api/wagesearch/caos",
+    "name": "CAO List Items",
+    "description": "Returns CAO items",
+    "cursor_field": null,
+    "id_field": "id",
+    "parameters": [
+      {"name": "sbiCode", "type": "string", "required": false, "description": "SBI Code"},
+      {"name": "payrollCode", "type": "integer", "required": false, "description": "Payroll Code"},
+      {"name": "payrollName", "type": "string", "required": false, "description": "Payroll Name"}
+    ]
+  },
+  {
+    "path": "/api/wagesearch/periodics",
+    "name": "Periodic Values",
+    "description": "Returns CAOFunctionGroup periodics values",
+    "cursor_field": null,
+    "id_field": null,
+    "parameters": [
+      {"name": "caoId", "type": "integer", "required": true, "description": "Id of CAO"},
+      {"name": "caoFunctionGroupId", "type": "integer", "required": true, "description": "Id of CAOFunctionGroup"},
+      {"name": "birthDate", "type": "date-time", "required": true, "description": "Date of birth. Min: 13 years"},
+      {"name": "date", "type": "date-time", "required": true, "description": "Request start date"}
+    ]
+  },
+  {
+    "path": "/api/wagesearch/workweekhours",
+    "name": "Workweek Hour Values",
+    "description": "Returns workweek hour values by CAO id",
+    "cursor_field": null,
+    "id_field": null,
+    "parameters": [
+      {"name": "caoId", "type": "integer", "required": true, "description": "Id of CAO"}
+    ]
+  },
+  {
+    "path": "/api/wagesearchinfo",
+    "name": "Wage Search",
+    "description": "Returns Wage by request parameters",
+    "cursor_field": null,
+    "id_field": null,
+    "parameters": [
+      {"name": "caoId", "type": "integer", "required": true, "description": "Id of CAO"},
+      {"name": "caoFunctionId", "type": "integer", "required": true, "description": "Id of CAOFunction"},
+      {"name": "caoFunctionGroupId", "type": "integer", "required": true, "description": "Id of CAOFunctionGroup"},
+      {"name": "workWeekHours", "type": "float", "required": true, "description": "Hours of working week. Min 1, max 168"},
+      {"name": "birthdate", "type": "date-time", "required": true, "description": "Date of birth. Min: 13 years"},
+      {"name": "date", "type": "date-time", "required": true, "description": "Request start date"},
+      {"name": "periodic", "type": "integer", "required": true, "description": "Experience. Min 0, max 77"},
+      {"name": "employer", "type": "string", "required": false, "description": "Name of Employer. Max 128 chars"},
+      {"name": "agency", "type": "string", "required": false, "description": "Name of Agency. Max 128 chars"},
+      {"name": "flexWorker", "type": "string", "required": false, "description": "Name of FlexWorker. Max 64 chars"}
+    ]
+  },
+  {
+    "path": "/api/webhooks/filters",
+    "name": "WebHook Filters",
+    "description": "Returns available webhook filters",
+    "cursor_field": null,
+    "id_field": null,
+    "parameters": []
+  },
+  {
+    "path": "/api/webhooks/registrations",
+    "name": "WebHook Registrations",
+    "description": "Returns webhook registrations",
+    "cursor_field": null,
+    "id_field": "id",
+    "parameters": []
+  }
+]
